@@ -73,7 +73,6 @@ uis.directive('uiSelectMultiple', ['uiSelectMinErr','$timeout', function(uiSelec
       //$select.selected = raw selected objects (ignoring any property binding)
 
       $select.multiple = true;
-      $select.removeSelected = true;
 
       //Input that will handle focus
       $select.focusInput = $select.searchInput;
@@ -155,7 +154,21 @@ uis.directive('uiSelectMultiple', ['uiSelectMinErr','$timeout', function(uiSelec
       };
 
       scope.$on('uis:select', function (event, item) {
-        $select.selected.push(item);
+        if (angular.isArray(item)) {
+          $select.selected = item;
+        } else {
+          $select.selected.push(item);
+        }
+        $selectMultiple.updateModel();
+      });
+
+      scope.$on('uis:unselect', function(event, item) {
+        if (angular.isArray(item)) {
+          $select.selected = [];
+        } else {
+          var idx = $select.selected.indexOf(item);
+          $select.selected.splice(idx, 1);
+        }
         $selectMultiple.updateModel();
       });
 

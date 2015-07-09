@@ -23,11 +23,13 @@ uis.directive('uiSelectChoices',
         var groupByExp = attrs.groupBy;
         var groupFilterExp = attrs.groupFilter;
 
+        $select.hasCheckboxes = attrs.enableCheckboxes === "" ? true: false;
+
         $select.parseRepeatAttr(attrs.repeat, groupByExp, groupFilterExp); //Result ready at $select.parserResult
 
         $select.disableChoiceExpression = attrs.uiDisableChoice;
         $select.onHighlightCallback = attrs.onHighlight;
-
+        
         if(groupByExp) {
           var groups = element.querySelectorAll('.ui-select-choices-group');
           if (groups.length !== 1) throw uiSelectMinErr('rows', "Expected 1 .ui-select-choices-group but got '{0}'.", groups.length);
@@ -39,8 +41,22 @@ uis.directive('uiSelectChoices',
           throw uiSelectMinErr('rows', "Expected 1 .ui-select-choices-row but got '{0}'.", choices.length);
         }
 
+        var checkboxes = element.querySelectorAll('.ui-select-choices-checkbox');
+
+        $select.toggleCheckboxes = function($event) {
+          var isAllChecked = /All/.test($event.target.innerText);
+          if (isAllChecked) {
+            $select.select($select.items, false);
+          } else {
+            $select.unSelect([], false);
+          }
+        };
+
+        checkboxes.attr('ng-if', '$select.hasCheckboxes')
+          .attr('ng-checked', '$select.isSelected(' + $select.parserResult.itemName + ')');
+
         choices.attr('ng-repeat', RepeatParser.getNgRepeatExpression($select.parserResult.itemName, '$select.items', $select.parserResult.trackByExp, groupByExp))
-            .attr('ng-if', '$select.open') //Prevent unnecessary watches when dropdown is closed
+            .attr('ng-show', '$select.open') //Prevent unnecessary watches when dropdown is closed
             .attr('ng-mouseenter', '$select.setActiveItem('+$select.parserResult.itemName +')')
             .attr('ng-click', '$select.select(' + $select.parserResult.itemName + ',false,$event)');
 

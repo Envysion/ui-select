@@ -17,6 +17,20 @@
   top: 0px !important;
 }
 
+.ui-select-choices-header {
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+  margin-left: 5px;
+}
+
+.ui-select-choices-header .ui-select-choices-toggle {
+  color: blue;
+}
+
+.ui-select-choices-header .ui-select-choices-toggle:hover {
+  text-decoration: underline; 
+  cursor: pointer;
+}
+
 /* Select2 theme */
 
 /* Mark invalid Select2 */

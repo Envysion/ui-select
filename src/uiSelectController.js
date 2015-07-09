@@ -17,7 +17,7 @@ uis.controller('uiSelectCtrl',
   ctrl.sortable = uiSelectConfig.sortable;
   ctrl.refreshDelay = uiSelectConfig.refreshDelay;
 
-  ctrl.removeSelected = false; //If selected item(s) should be removed from dropdown list
+  ctrl.removeSelected = true; //If selected item(s) should be removed from dropdown list
   ctrl.closeOnSelect = true; //Initialized inside uiSelect directive link function
   ctrl.search = EMPTY_SEARCH;
 
@@ -38,6 +38,7 @@ uis.controller('uiSelectCtrl',
   ctrl.lockChoiceExpression = undefined; // Initialized inside uiSelectMatch directive link function
   ctrl.clickTriggeredSelect = false;
   ctrl.$filter = $filter;
+  ctrl.checked = ctrl.checked || {}; 
 
   ctrl.searchInput = $element.querySelectorAll('input.ui-select-search');
   if (ctrl.searchInput.length !== 1) {
@@ -148,9 +149,13 @@ uis.controller('uiSelectCtrl',
       if ((angular.isArray(selectedItems) && !selectedItems.length) || !ctrl.removeSelected) {
         ctrl.setItemsFn(data);
       }else{
-        if ( data !== undefined ) {
-          var filteredItems = data.filter(function(i) {return selectedItems.indexOf(i) < 0;});
-          ctrl.setItemsFn(filteredItems);
+        if ( data !== undefined) {
+          if(angular.isArray(selectedItems)) {
+            var filteredItems = data.filter(function(i) {return selectedItems.indexOf(i) < 0;});
+            ctrl.setItemsFn(filteredItems);
+          } else {
+            ctrl.setItemsFn(data);
+          }
         }
       }
     };
@@ -260,7 +265,7 @@ uis.controller('uiSelectCtrl',
           } else {
             // tagging always operates at index zero, taggingLabel === false pushes
             // the ctrl.search value without having it injected
-            if ( ctrl.activeIndex === 0 ) {
+            if ( ctrl.activeindex === 0 ) {
               // ctrl.tagging pushes items to ctrl.items, so we only have empty val
               // for `item` if it is a detected duplicate
               if ( item === undefined ) return;
@@ -273,7 +278,7 @@ uis.controller('uiSelectCtrl',
               // if item type is 'string', apply the tagging label
               } else if ( typeof item === 'string' ) {
                 // trim the trailing space
-                item = item.replace(ctrl.taggingLabel,'').trim();
+                item = item.replace(ctrl.tagginglabel,'').trim();
               }
             }
           }
@@ -284,7 +289,21 @@ uis.controller('uiSelectCtrl',
           }
         }
 
-        $scope.$broadcast('uis:select', item);
+        if (ctrl.removeSelected) {
+          $scope.$broadcast('uis:select', item);
+        }
+
+        if (!ctrl.removeSelected) {
+          if (ctrl.isSelected(item)) {
+            $scope.$broadcast('uis:unselect', item);
+          } else {
+            ctrl.checked[item] = {
+              $event: $event,
+              idx: ctrl.items.indexOf(item)
+            };
+            $scope.$broadcast('uis:select', item);
+          }
+        }
 
         var locals = {};
         locals[ctrl.parserResult.itemName] = item;
@@ -304,6 +323,16 @@ uis.controller('uiSelectCtrl',
         }
       }
     }
+  };
+
+  ctrl.isSelected = function(item) {
+    return ctrl.selected.indexOf(item) > -1;
+  };
+
+  //unselects all
+  ctrl.unSelect = function(item, skipFocusser) {
+    $scope.$broadcast('uis:unselect', item);
+    ctrl.close(skipFocusser);
   };
 
   // Closes the dropdown
