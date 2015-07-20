@@ -340,7 +340,11 @@ uis.controller('uiSelectCtrl',
     if (!ctrl.open) return;
     if (ctrl.ngModel && ctrl.ngModel.$setTouched) ctrl.ngModel.$setTouched();
     _resetSearchInput();
-    ctrl.open = false;
+
+    // debounces for the selection
+    $timeout(function() {
+      ctrl.open = false;
+    }, 100);
 
     $scope.$broadcast('uis:close', skipFocusser);
 
@@ -393,8 +397,9 @@ uis.controller('uiSelectCtrl',
           if (containerWidth === 0) {
             return false;
           }
-          var inputWidth = containerWidth - input.offsetLeft - 10;
+          var inputWidth = containerWidth - input.offsetLeft - 15;
           if (inputWidth < 50) inputWidth = containerWidth;
+          if (ctrl.items.length === 0) inputWidth = 10;
           ctrl.searchInput.css('width', inputWidth+'px');
           return true;
         };
