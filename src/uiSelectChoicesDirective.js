@@ -51,9 +51,16 @@ uis.directive('uiSelectChoices',
             $select.unSelect([], false);
           }
         };
+        
+        // This handles it if user clicked checkbox directly
+        $select.checkboxClick = function(item, e) {
+          $select.select(item, false, e);
+          e.stopPropagation();
+        };
 
         checkboxes.attr('ng-if', '$select.hasCheckboxes')
-          .attr('ng-checked', '$select.isSelected(' + $select.parserResult.itemName + ')');
+          .attr('ng-checked', '$select.isSelected(' + $select.parserResult.itemName + ')')
+          .attr('ng-click', '$select.checkboxClick(' + $select.parserResult.itemName + ',$event)');
 
         choices.attr('ng-repeat', RepeatParser.getNgRepeatExpression($select.parserResult.itemName, '$select.items', $select.parserResult.trackByExp, groupByExp))
             .attr('ng-if', '$select.open') //Prevent unnecessary watches when dropdown is closed
