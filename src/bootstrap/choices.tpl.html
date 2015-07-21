@@ -2,8 +2,9 @@
     role="listbox"
     ng-show="$select.items.length > 0">
   <div class="ui-select-choices-header" ng-if="$select.hasCheckboxes">
-    <p>Select 
+    <p>Select   
       <span class="ui-select-choices-toggle toggle-all" ng-click="$select.toggleCheckboxes($event)">All</span> | <span class="ui-select-choices-toggle toggle-none" ng-click="$select.toggleCheckboxes($event)">None</span>
+      <span class="ui-select-choices-close" ng-click="$select.close()">X</span>
     </p>
   </div>
   <li class="ui-select-choices-group" id="ui-select-choices-{{ $select.generatedId }}" >

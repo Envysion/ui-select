@@ -31,6 +31,19 @@
   cursor: pointer;
 }
 
+.ui-select-choices-header p {
+  padding-right: 8px;
+}
+
+.ui-select-choices-header .ui-select-choices-close {
+  float: right;
+}
+
+.ui-select-choices-header .ui-select-choices-close:hover {
+  cursor: pointer;
+  color: blue;
+}
+
 /* Select2 theme */
 
 /* Mark invalid Select2 */

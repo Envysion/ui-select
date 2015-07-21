@@ -1,7 +1,7 @@
 /*!
  * ui-select
  * http://github.com/angular-ui/ui-select
- * Version: 0.12.0 - 2015-07-21T04:27:20.540Z
+ * Version: 0.12.0 - 2015-07-21T15:49:15.925Z
  * License: MIT
  */
 
@@ -37,6 +37,19 @@
 .ui-select-choices-header .ui-select-choices-toggle:hover {
   text-decoration: underline; 
   cursor: pointer;
+}
+
+.ui-select-choices-header p {
+  padding-right: 8px;
+}
+
+.ui-select-choices-header .ui-select-choices-close {
+  float: right;
+}
+
+.ui-select-choices-header .ui-select-choices-close:hover {
+  cursor: pointer;
+  color: blue;
 }
 
 /* Select2 theme */
