@@ -1,7 +1,7 @@
 /*!
  * ui-select
  * http://github.com/angular-ui/ui-select
- * Version: 0.12.0 - 2015-07-21T15:49:15.925Z
+ * Version: 0.12.0 - 2015-07-27T18:18:29.220Z
  * License: MIT
  */
 
@@ -9,6 +9,10 @@
 /* Style when highlighting a search. */
 .ui-select-highlight {
   font-weight: bold;
+}
+
+.ui-select-match {
+  cursor: pointer;
 }
 
 .ui-select-offscreen {
@@ -50,83 +54,6 @@
 .ui-select-choices-header .ui-select-choices-close:hover {
   cursor: pointer;
   color: blue;
-}
-
-/* Select2 theme */
-
-/* Mark invalid Select2 */
-.ng-dirty.ng-invalid > a.select2-choice {
-    border-color: #D44950;
-}
-
-.select2-result-single {
-  padding-left: 0;
-}
-
-.select2-locked > .select2-search-choice-close{
-  display:none;
-}
-
-.select-locked > .ui-select-match-close{
-    display:none;
-}
-
-body > .select2-container.open {
-  z-index: 9999; /* The z-index Select2 applies to the select2-drop */
-}
-
-/* Handle up direction Select2 */
-.ui-select-container[theme="select2"].direction-up .ui-select-match {
-    border-radius: 4px; /* FIXME hardcoded value :-/ */
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-}
-.ui-select-container[theme="select2"].direction-up .ui-select-dropdown {
-    border-radius: 4px; /* FIXME hardcoded value :-/ */
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-
-    border-top-width: 1px;  /* FIXME hardcoded value :-/ */
-    border-top-style: solid;
-
-    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.25);
-
-    margin-top: -4px; /* FIXME hardcoded value :-/ */
-}
-.ui-select-container[theme="select2"].direction-up .ui-select-dropdown .select2-search {
-    margin-top: 4px; /* FIXME hardcoded value :-/ */
-}
-.ui-select-container[theme="select2"].direction-up.select2-dropdown-open .ui-select-match {
-    border-bottom-color: #5897fb;
-}
-
-/* Selectize theme */
-
-/* Helper class to show styles when focus */
-.selectize-input.selectize-focus{
-  border-color: #007FBB !important;
-}
-
-/* Fix input width for Selectize theme */
-.selectize-control > .selectize-input > input {
-  width: 100%;
-}
-
-/* Fix dropdown width for Selectize theme */
-.selectize-control > .selectize-dropdown {
-  width: 100%;
-}
-
-/* Mark invalid Selectize */
-.ng-dirty.ng-invalid > div.selectize-input {
-    border-color: #D44950;
-}
-
-/* Handle up direction Selectize */
-.ui-select-container[theme="selectize"].direction-up .ui-select-dropdown {
-    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.25);
-
-    margin-top: -2px; /* FIXME hardcoded value :-/ */
 }
 
 /* Bootstrap theme */
