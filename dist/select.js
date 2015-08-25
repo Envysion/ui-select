@@ -1,7 +1,7 @@
 /*!
  * ui-select
  * http://github.com/angular-ui/ui-select
- * Version: 0.13.0 - 2015-07-27T18:32:34.694Z
+ * Version: 0.13.0 - 2015-08-25T18:27:13.066Z
  * License: MIT
  */
 
@@ -213,7 +213,7 @@ uis.directive('uiSelectChoices',
         var checkboxes = element.querySelectorAll('.ui-select-choices-checkbox');
 
         $select.toggleCheckboxes = function($event) {
-          var isAllChecked = /All/.test($event.target.innerText);
+          var isAllChecked = /toggle\-all/.test($event.target.className);
           if (isAllChecked) {
             $select.select($select.items, false);
           } else {
