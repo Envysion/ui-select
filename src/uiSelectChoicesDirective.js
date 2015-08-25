@@ -44,7 +44,7 @@ uis.directive('uiSelectChoices',
         var checkboxes = element.querySelectorAll('.ui-select-choices-checkbox');
 
         $select.toggleCheckboxes = function($event) {
-          var isAllChecked = /All/.test($event.target.innerText);
+          var isAllChecked = /toggle\-all/.test($event.target.className);
           if (isAllChecked) {
             $select.select($select.items, false);
           } else {
